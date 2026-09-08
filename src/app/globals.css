@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+ * Cookie Chain palette — warm bakery tones over a deep espresso ground.
+ * Defined light-first on :root, then overridden for dark.
+ */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-cookie-50: #fdf7ed;
+  --color-cookie-100: #f8e8cf;
+  --color-cookie-200: #f0cf9c;
+  --color-cookie-300: #e6b26b;
+  --color-cookie-400: #dc9440;
+  --color-cookie-500: #cf7a24;
+  --color-cookie-600: #b25f1a;
+  --color-cookie-700: #8d4718;
+  --color-cookie-800: #6a371a;
+  --color-cookie-900: #4a2714;
+  --color-cookie-950: #2a1509;
+}
+
+:root {
+  --bg: #f7f3ec;
+  --panel: #ffffff;
+  --panel-alt: #fbf7f0;
+  --border: #e6ddcd;
+  --text: #241a10;
+  --muted: #7a6a56;
+  --accent: #b25f1a;
+  --accent-soft: #f8e8cf;
+  --pos: #1a7f4b;
+  --neg: #b3341f;
+  --shadow: 0 1px 2px rgb(36 26 16 / 0.06), 0 8px 24px -12px rgb(36 26 16 / 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14100b;
+    --panel: #1e1811;
+    --panel-alt: #241d15;
+    --border: #362c20;
+    --text: #f3ece1;
+    --muted: #a2907a;
+    --accent: #e6b26b;
+    --accent-soft: #33261a;
+    --pos: #4ade80;
+    --neg: #f87171;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* Subtle warm gradient so the page never reads as flat grey. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(70rem 40rem at 12% -10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 65%),
+    radial-gradient(60rem 36rem at 100% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%);
+}
+
+@keyframes cookie-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.animate-pulse-soft {
+  animation: cookie-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes cookie-spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: cookie-spin 1s linear infinite;
+}
+
+@keyframes cookie-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-rise {
+  animation: cookie-rise 0.28s ease-out both;
+}
+
+/* Wide content scrolls inside its own container, never the page body. */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
